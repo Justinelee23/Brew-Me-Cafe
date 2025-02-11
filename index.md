@@ -41,5 +41,5 @@ permalink: /contact/
 # Get in Touch!
 
 Email us at [info@brewmecafe.com](mailto://info@brewmecafe.com) or visit our location today!
-[Visit About Page](about)
+[Visit About Page]([about](https://www.facebook.com/justinelee72))
 _config.yml
