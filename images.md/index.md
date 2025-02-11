@@ -5,7 +5,7 @@ layout: page
 title: Brew Me Café
 permalink: /
 ---
-
+![image alt]([image_url](https://github.com/Justinelee23/Justine/blob/47fffb9fa6a43b54dccc655a9ffe10099c64a6fb/Brew%20Me%20caf%C3%A9.png))
 # Welcome to Brew Me Café
 
 We are passionate about serving high-quality coffee in a cozy atmosphere.
