@@ -1,0 +1,14 @@
+.order-btn {
+    display: inline-block;
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.order-btn:hover {
+    background-color: #ff4500;
+}
