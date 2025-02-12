@@ -43,7 +43,8 @@ Email us at [info@brewmecafe.com](mailto://info@brewmecafe.com) or visit our loc
 [Visit About Page]([Visit About Page]([https://www.facebook.com/justinelee72]
 _config.yml
 
-## 🛒 Online Ordering
+
+[## 🛒 Online Ordering
 
 Order your favorite food and drinks online! Simply select your items and submit your order.
 
@@ -162,3 +163,4 @@ Order your favorite food and drinks online! Simply select your items and submit 
 </p>
 
 </form>
+](https://brewmecafe.github.io/Brew-Me/menu.html)
