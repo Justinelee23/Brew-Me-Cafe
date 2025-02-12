@@ -134,33 +134,127 @@ Order your favorite food and drinks online! Simply select your items and submit 
 
 ---
 
-### 📩 Submit Your Order  
-**Name:**  
-<input type="text" name="Name" required placeholder="Enter your name">  
-
-**Email:**  
-<input type="email" name="Email" required placeholder="Enter your email">  
-
-**Phone Number:**  
-<input type="text" name="Phone" required placeholder="Enter your phone number">  
-
-**Additional Notes:**  
-<textarea name="Notes" placeholder="Special requests (optional)"></textarea>  
-
-<p style="text-align: center;">
-    <button type="submit" style="
-        background-color: #ff6600;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;">
-        Submit Order
-    </button>
-</p>
-
-</form>
-](https://brewmecafe.github.io/Brew-Me/menu.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew Me Café - Online Ordering</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function updateTotal() {
+            let total = 0;
+            const prices = {
+                espresso: 50, brewed_coffee: 60, cappuccino: 75,
+                tuna_sandwich: 85, egg_sandwich: 75, burger_fries: 120,
+                tuna_pesto: 150, carbonara: 140
+            };
+            
+            for (const item in prices) {
+                let qty = document.getElementById(item).value;
+                total += prices[item] * qty;
+            }
+            document.getElementById('totalPrice').innerText = 'Total: ₱' + total;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🛒 Online Ordering</h2>
+        <p>Order your favorite food and drinks online! Select your items and submit your order.</p>
+        <form action="https://formspree.io/f/xjkgerqg" method="POST">
+            <div class="form-group">
+                <label>☕ Specialty Drinks</label>
+                <select id="espresso" name="Espresso" onchange="updateTotal()">
+                    <option value="0">Espresso - ₱50</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+                <select id="brewed_coffee" name="Brewed Coffee" onchange="updateTotal()">
+                    <option value="0">Brewed Coffee - ₱60</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>🍽 Snacks & Food</label>
+                <select id="tuna_sandwich" name="Tuna Sandwich" onchange="updateTotal()">
+                    <option value="0">Tuna Sandwich - ₱85</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>🍝 Pasta</label>
+                <select id="tuna_pesto" name="Creamy Tuna Pesto Pasta" onchange="updateTotal()">
+                    <option value="0">Creamy Tuna Pesto Pasta - ₱150</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="total" id="totalPrice">Total: ₱0</div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone">
+            </div>
+            <div class="form-group">
+                <label>Additional Notes</label>
+                <textarea name="message"></textarea>
+            </div>
+            <button type="submit">Submit Order</button>
+        </form>
+    </div>
+</body>
+</html>
