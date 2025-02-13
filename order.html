@@ -353,4 +353,93 @@
       margin-top: 10px;
     }
 
-    input[type
+<!-- Add this to the existing CSS -->
+<style>
+    #order-items div {
+        margin: 10px 0;
+        padding: 10px;
+        background: #fff;
+        border-radius: 5px;
+        border: 1px solid #eee;
+    }
+</style>
+
+<script>
+    // Price Configuration (keep existing prices object)
+
+    // Calculate Total Function
+    function calculateTotal() {
+        let total = 0;
+
+        // Calculate Shakes
+        const chocolateQty = parseInt(document.getElementById('chocolate-shake').value);
+        if (chocolateQty > 0) {
+            const size = document.querySelector('[name="chocolate-size"]:checked').value;
+            const price = prices.shakes.chocolate[size];
+            total += price * chocolateQty;
+            
+            // Add add-ons
+            document.querySelectorAll('[name="chocolate-addons"]:checked').forEach(addon => {
+                total += prices.addOns[addon.value] * chocolateQty;
+            });
+        }
+
+        // Calculate Expresso
+        const expressoQty = parseInt(document.getElementById('expresso').value);
+        if (expressoQty > 0) {
+            total += prices.drinks.expresso.min * expressoQty;
+        }
+
+        // Calculate Tuna Sandwich
+        const tunaQty = parseInt(document.getElementById('tuna-sandwich').value);
+        if (tunaQty > 0) {
+            total += prices.snacks.tunaSandwich.min * tunaQty;
+            
+            document.querySelectorAll('[name="tuna-addons"]:checked').forEach(addon => {
+                total += prices.addOns[addon.value] * tunaQty;
+            });
+        }
+
+        // Update Display
+        document.getElementById('total-price').textContent = total;
+        return total;
+    }
+
+    // Update order summary when any input changes
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => {
+            const orderItemsDiv = document.getElementById('order-items');
+            orderItemsDiv.innerHTML = '';
+            let html = '';
+            
+            // Example for Chocolate Shake
+            const chocolateQty = parseInt(document.getElementById('chocolate-shake').value);
+            if (chocolateQty > 0) {
+                html += `<div>
+                    Chocolate Shake (${document.querySelector('[name="chocolate-size"]:checked').value}) 
+                    x${chocolateQty} - ₱${prices.shakes.chocolate[document.querySelector('[name="chocolate-size"]:checked').value] * chocolateQty}
+                </div>`;
+            }
+
+            // Repeat similar logic for all other items
+            
+            orderItemsDiv.innerHTML = html;
+            calculateTotal();
+        });
+    });
+
+    // Modified placeOrder function
+    async function placeOrder() {
+        const total = calculateTotal();
+        if (total === 0) {
+            alert('Please add items to your order');
+            return;
+        }
+
+        // Rest of your existing Formspree code
+        // Add total to formData
+        formData.append('Total Amount', `₱${total}`);
+        
+        // Existing Formspree submission code
+    }
+</script>
