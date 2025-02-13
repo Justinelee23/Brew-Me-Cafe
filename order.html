@@ -113,29 +113,6 @@
   <div class="container">
     <h1>Online Ordering System</h1>
 
-    <!-- Customer Details Section -->
-    <div class="menu-section">
-      <h2>Customer Details for Delivery</h2>
-      <div class="customer-details">
-        <div class="form-group">
-          <label for="full-name">Full Name:</label>
-          <input type="text" id="full-name" name="full-name" required>
-        </div>
-        <div class="form-group">
-          <label for="address">Delivery Address:</label>
-          <textarea id="address" name="address" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="contact">Contact Number:</label>
-          <input type="tel" id="contact" name="contact" pattern="[0-9]{11}" required>
-        </div>
-        <div class="form-group">
-          <label for="delivery-time">Preferred Delivery Time:</label>
-          <input type="datetime-local" id="delivery-time" name="delivery-time" required>
-        </div>
-      </div>
-    </div>
-
     <!-- Drinks Section -->
     <div class="menu-section">
       <h2>Drinks</h2>
@@ -146,10 +123,33 @@
         </div>
         <div>
           <label for="expresso-qty">Quantity:</label>
-          <input type="number" id="expresso-qty" name="expresso-qty" min="0" value="0">
+          <input type="number" id="expresso-qty" min="0" value="0">
         </div>
       </div>
-      <!-- Add other menu items similarly -->
+      <!-- Add other menu items here -->
+    </div>
+
+    <!-- Customer Details for Delivery -->
+    <div class="menu-section">
+      <h2>Customer Details for Delivery</h2>
+      <div class="customer-details">
+        <div class="form-group">
+          <label for="full-name">Full Name:</label>
+          <input type="text" id="full-name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Delivery Address:</label>
+          <textarea id="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number:</label>
+          <input type="tel" id="contact" pattern="[0-9]{11}" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery-time">Preferred Delivery Time:</label>
+          <input type="datetime-local" id="delivery-time" required>
+        </div>
+      </div>
     </div>
 
     <!-- Order Summary -->
@@ -161,44 +161,6 @@
   </div>
 
   <script>
-    // Function to update the order summary
-    function updateOrderSummary() {
-      const orderList = document.getElementById('order-list');
-      orderList.innerHTML = '';
-
-      // Example: Add items to the order summary
-      const items = [
-        { name: 'Expresso', qty: document.getElementById('expresso-qty').value, price: 120 },
-        { name: 'Brewed Coffee', qty: document.getElementById('brewed-coffee-qty').value, price: 80 },
-        { name: 'Chocolate Shake', qty: document.getElementById('chocolate-shake-qty').value, price: 150 },
-        { name: 'Tuna Sandwich', qty: document.getElementById('tuna-sandwich-qty').value, price: 130 },
-        { name: 'Waffles', qty: document.getElementById('waffles-qty').value, price: 50 },
-      ];
-
-      // Add-ons prices
-      const addOnsPrices = {
-        'whipped-cream': 20,
-        'choco-chips': 30,
-        'extra-cheese': 20,
-        'extra-mayo': 10,
-        'bacon-strips': 50,
-      };
-
-      // Calculate total and display order summary
-      let total = 0;
-      items.forEach(item => {
-        if (item.qty > 0) {
-          const itemTotal = item.qty * item.price;
-          total += itemTotal;
-          orderList.innerHTML += `<li>${item.name} x ${item.qty} = ₱${itemTotal}</li>`;
-        }
-      });
-
-      // Display total
-      orderList.innerHTML += `<li><strong>Total:</strong> ₱${total}</li>`;
-    }
-
-    // Function to place the order
     function placeOrder() {
       // Get customer details
       const customerName = document.getElementById('full-name').value;
@@ -212,45 +174,60 @@
         return;
       }
 
-      // Prepare form data for Formspree
-      const formData = new FormData();
-      formData.append('full-name', customerName);
-      formData.append('address', address);
-      formData.append('contact', contact);
-      formData.append('delivery-time', deliveryTime);
-
-      // Add order items to form data
+      // Prepare order items
+      const orderItems = [];
       const items = [
-        { name: 'Expresso', qty: document.getElementById('expresso-qty').value },
-        { name: 'Brewed Coffee', qty: document.getElementById('brewed-coffee-qty').value },
-        { name: 'Chocolate Shake', qty: document.getElementById('chocolate-shake-qty').value },
-        { name: 'Tuna Sandwich', qty: document.getElementById('tuna-sandwich-qty').value },
-        { name: 'Waffles', qty: document.getElementById('waffles-qty').value },
+        { name: 'Expresso', qty: document.getElementById('expresso-qty').value, price: 120 },
+        // Add other items here
       ];
 
       items.forEach(item => {
         if (item.qty > 0) {
-          formData.append(item.name, item.qty);
+          orderItems.push(`${item.name} (Qty: ${item.qty}) - ₱${item.price * item.qty}`);
         }
       });
 
-      // Submit form data to Formspree
+      // Prepare the order summary
+      const orderSummary = `
+        Name: ${customerName}
+        Address: ${address}
+        Contact: ${contact}
+        Delivery Time: ${new Date(deliveryTime).toLocaleString()}
+        Order Items: ${orderItems.join(', ')}
+      `;
+
+      // Send data to Formspree
       fetch('https://formspree.io/f/xjkgerqg', {
         method: 'POST',
-        body: formData,
         headers: {
           'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
+        body: JSON.stringify({
+          name: customerName,
+          address: address,
+          contact: contact,
+          delivery_time: deliveryTime,
+          order_summary: orderSummary
+        })
       })
       .then(response => {
         if (response.ok) {
           alert('Order placed successfully! We will contact you to confirm your order.');
+          // Reset form
+          document.getElementById('full-name').value = '';
+          document.getElementById('address').value = '';
+          document.getElementById('contact').value = '';
+          document.getElementById('delivery-time').value = '';
+          // Reset quantities
+          document.getElementById('expresso-qty').value = 0;
+          // Reset other quantities here
         } else {
-          alert('There was an error submitting your order. Please try again.');
+          alert('There was a problem placing your order. Please try again.');
         }
       })
       .catch(error => {
-        alert('There was an error submitting your order. Please try again.');
+        alert('There was a problem placing your order. Please try again.');
       });
     }
   </script>
