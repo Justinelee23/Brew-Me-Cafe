@@ -3,443 +3,327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brew-Me Cafe Online Ordering</title>
+  <title>Brew Me Café Online Ordering</title>
   <style>
-    /* Base Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
+    /* Previous CSS remains, add these new styles */
+    .item-code {
+      color: #666;
+      font-size: 0.9em;
+      margin-right: 10px;
     }
-    
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-
-    h1, h2 {
-      color: #2d3436;
-      margin-bottom: 25px;
-    }
-
-    .menu-section {
-      margin-bottom: 40px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 10px;
-    }
-
-    .menu-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .item-details {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
     .size-options {
-      display: flex;
-      gap: 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       margin: 10px 0;
     }
-
-    .add-ons {
+    .size-option label {
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    input[type="number"] {
-      width: 70px;
+      flex-direction: column;
+      align-items: center;
       padding: 8px;
       border: 1px solid #ddd;
       border-radius: 5px;
+      cursor: pointer;
     }
-
-    .order-summary {
-      background: #fff9f2;
-      padding: 25px;
-      border-radius: 10px;
-      margin-top: 40px;
-    }
-
-    /* Customer Details Styles */
-    .customer-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .place-order-btn {
+    .size-option input:checked + label {
       background: #e67e22;
       color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background 0.3s;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .place-order-btn:hover {
-      background: #d35400;
+      border-color: #e67e22;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🍵 Brew-Me Cafe Online Ordering</h1>
+    <h1>☕ Brew Me Café Online Ordering</h1>
 
-    <!-- Customer Details -->
-    <div class="customer-details">
-      <div class="form-group">
-        <label>Full Name:</label>
-        <input type="text" id="full-name" required>
+    <!-- Customer Details Section --> 
+    <!-- Keep existing customer details form -->
+
+    <!-- Drinks Menu -->
+    <div class="menu-section">
+      <h2>☕ Drinks</h2>
+      
+      <!-- Espresso -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3><span class="item-code">D01</span>Espresso</h3>
+          <div class="size-options">
+            <div class="size-option">
+              <input type="radio" name="espresso-size" id="espresso-small" value="small" checked>
+              <label for="espresso-small">Small<br>₱100</label>
+            </div>
+            <div class="size-option">
+              <input type="radio" name="espresso-size" id="espresso-medium" value="medium">
+              <label for="espresso-medium">Medium<br>₱120</label>
+            </div>
+            <div class="size-option">
+              <input type="radio" name="espresso-size" id="espresso-large" value="large">
+              <label for="espresso-large">Large<br>₱150</label>
+            </div>
+          </div>
+        </div>
+        <input type="number" id="espresso-qty" min="0" value="0">
       </div>
-      <div class="form-group">
-        <label>Contact Number:</label>
-        <input type="tel" id="contact" pattern="[0-9]{11}" required>
-      </div>
-      <div class="form-group">
-        <label>Delivery Address:</label>
-        <textarea id="address" rows="3" required></textarea>
-      </div>
-      <div class="form-group">
-        <label>Delivery Time:</label>
-        <input type="datetime-local" id="delivery-time" required>
+
+      <!-- Repeat for other drinks following the same pattern -->
+      
+      <!-- Chocolate Shake -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3><span class="item-code">D07</span>Chocolate Shake</h3>
+          <div class="size-options">
+            <div class="size-option">
+              <input type="radio" name="chocolate-shake-size" id="chocolate-small" value="small" checked>
+              <label for="chocolate-small">Small<br>₱150</label>
+            </div>
+            <div class="size-option">
+              <input type="radio" name="chocolate-shake-size" id="chocolate-medium" value="medium">
+              <label for="chocolate-medium">Medium<br>₱170</label>
+            </div>
+            <div class="size-option">
+              <input type="radio" name="chocolate-shake-size" id="chocolate-large" value="large">
+              <label for="chocolate-large">Large<br>₱200</label>
+            </div>
+          </div>
+          <div class="add-ons">
+            <label><input type="checkbox" value="whipped-cream"> Whipped Cream (+₱20)</label>
+            <label><input type="checkbox" value="choco-chips"> Chocolate Chips (+₱30)</label>
+          </div>
+        </div>
+        <input type="number" id="chocolate-shake-qty" min="0" value="0">
       </div>
     </div>
 
+    <!-- Snacks & Meals -->
+    <div class="menu-section">
+      <h2>🍔 Snacks & Meals</h2>
+      
+      <!-- Tuna Sandwich -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3>Tuna Sandwich</h3>
+          <p>₱130 - ₱160</p>
+          <div class="add-ons">
+            <label><input type="checkbox" value="extra-cheese"> Extra Cheese (+₱20)</label>
+            <label><input type="checkbox" value="extra-mayo"> Extra Mayo (+₱10)</label>
+          </div>
+        </div>
+        <input type="number" id="tuna-sandwich-qty" min="0" value="0">
+      </div>
 
-<!-- Drinks Section -->
-<div class="menu-section">
-  <h2>☕ Hot Drinks</h2>
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Expresso</h3>
-      <p>₱120 - ₱150</p>
+      <!-- Burger with Fries -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3>Burger with Fries</h3>
+          <p>₱230 - ₱290</p>
+          <div class="add-ons">
+            <label><input type="checkbox" value="extra-cheese"> Extra Cheese (+₱20)</label>
+            <label><input type="checkbox" value="bacon"> Bacon (+₱50)</label>
+          </div>
+        </div>
+        <input type="number" id="burger-fries-qty" min="0" value="0">
+      </div>
     </div>
-    <input type="number" id="expresso" min="0" value="0">
-  <div class="size-options">
-        <label>
-          <input type="radio" name="Expresso-size" value="small" checked>
-          Small (₱100)
-          <label>
-          <input type="radio" name="Expresso-size" value="small" checked>
-          Medium (₱120)
-        </label>
-        <label>
-          <input type="radio" name="Expresso-size" value="large">
-          Large (₱130)
-  <!-- Repeat for other drinks -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Brewed Coffee</h3>
-      <p>₱80 - ₱130</p>
+
+    <!-- Desserts & Pastas -->
+    <div class="menu-section">
+      <h2>🍰 Desserts & Pastas</h2>
+      
+      <!-- Creamy Tuna Pesto -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3>Creamy Tuna Pesto Pasta</h3>
+          <p>₱180 - ₱280</p>
+          <div class="add-ons">
+            <label><input type="checkbox" value="extra-cheese"> Extra Cheese (+₱20)</label>
+            <label><input type="checkbox" value="garlic-bread"> Garlic Bread (+₱30)</label>
+          </div>
+        </div>
+        <input type="number" id="tuna-pesto-qty" min="0" value="0">
+      </div>
+
+      <!-- Waffles -->
+      <div class="menu-item">
+        <div class="item-details">
+          <h3>Waffles</h3>
+          <p>₱50 - ₱100</p>
+          <div class="add-ons">
+            <label><input type="checkbox" value="maple-syrup"> Maple Syrup (+₱10)</label>
+            <label><input type="checkbox" value="ice-cream"> Ice Cream (+₱50)</label>
+          </div>
+        </div>
+        <input type="number" id="waffles-qty" min="0" value="0">
+      </div>
     </div>
-    <input type="number" id="Brewed Coffee" min="0" value="0">
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2>🛒 Order Summary</h2>
+      <div id="order-items"></div>
+      <p>Total: ₱<span id="total-price">0</span></p>
+      <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+    </div>
   </div>
 
-<!-- Shakes Section -->
-<div class="menu-section">
-  <h2>🥤 Shakes & Coolers</h2>
-  
-  <!-- Chocolate Shake -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Chocolate Shake</h3>
-      <div class="size-options">
-        <label>
-          <input type="radio" name="chocolate-size" value="small" checked>
-          Small (₱150)
-          <label>
-          <input type="radio" name="chocolate-size" value="small" checked>
-          Medium (₱170)
-        </label>
-        <label>
-          <input type="radio" name="chocolate-size" value="large">
-          Large (₱200)
-        </label>
-      </div>
-      <div class="add-ons">
-        <label><input type="checkbox" value="whipped-cream"> +Whipped Cream (₱20)</label>
-        <label><input type="checkbox" value="choco-chips"> +Chocolate Chips (₱30)</label>
-      </div>
-    </div>
-    <input type="number" id="chocolate-shake" min="0" value="0">
-  </div>
+  <script>
+    // Updated Price Configuration
+    const prices = {
+      drinks: {
+        D01: { small: 100, medium: 120, large: 150 },
+        D02: { small: 80, medium: 100, large: 130 },
+        D03: { small: 150, medium: 170, large: 200 },
+        // Add all other drink codes
+        D07: { small: 150, medium: 170, large: 200 },
+        D08: { small: 160, medium: 200, large: 250 },
+        D09: { small: 160, medium: 200, large: 250 },
+        D10: { small: 150, medium: 200, large: 250 }
+      },
+      snacks: {
+        tunaSandwich: { min: 130, max: 160 },
+        eggSandwich: { min: 90, max: 130 },
+        grilledCheese: { min: 170, max: 220 },
+        burgerFries: { min: 230, max: 290 }
+      },
+      desserts: {
+        waffles: { min: 50, max: 100 },
+        cakes: { min: 50, max: 100 },
+        cookies: { min: 50, max: 100 },
+        nachos: { min: 50, max: 100 },
+        pastas: { min: 180, max: 280 }
+      },
+      addOns: {
+        'whipped-cream': 20,
+        'choco-chips': 30,
+        'extra-cheese': 20,
+        'extra-mayo': 10,
+        'bacon': 50,
+        'garlic-bread': 30,
+        'maple-syrup': 10,
+        'ice-cream': 50
+      }
+    };
 
-  <!-- Strawberry Shake -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Strawberry Shake</h3>
-      <div class="size-options">
-        <label>
-          <input type="radio" name="strawberry-size" value="small" checked>
-          Small (₱160)
-        </label>
-        <label>
-          <input type="radio" name="strawberry-size" value="large">
-          Large (₱260)
-        </label>
-      </div>
-      <div class="add-ons">
-        <label><input type="checkbox" value="whipped-cream"> +Whipped Cream (₱20)</label>
-        <label><input type="checkbox" value="sprinkles"> +Sprinkles (₱30)</label>
-      </div>
-    </div>
-    <input type="number" id="strawberry-shake" min="0" value="0">
-  </div>
-</div>
-
-<!-- Snacks & Meals Section -->
-<div class="menu-section">
-  <h2>🍔 Snacks & Meals</h2>
-  
-  <!-- Tuna Sandwich -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Tuna Sandwich</h3>
-      <p>₱130 - ₱160</p>
-      <div class="add-ons">
-        <label><input type="checkbox" value="extra-cheese"> +Cheese (₱20)</label>
-        <label><input type="checkbox" value="extra-mayo"> +Mayo (₱10)</label>
-      </div>
-    </div>
-    <input type="number" id="tuna-sandwich" min="0" value="0">
-  </div>
-
-  <!-- Burger with Fries -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Burger with Fries</h3>
-      <p>₱230 - ₱290</p>
-      <div class="add-ons">
-        <label><input type="checkbox" value="extra-cheese"> +Cheese (₱20)</label>
-        <label><input type="checkbox" value="bacon"> +Bacon (₱50)</label>
-      </div>
-    </div>
-    <input type="number" id="burger-fries" min="0" value="0">
-  </div>
-</div>
-
-<!-- Desserts & Pastas -->
-<div class="menu-section">
-  <h2>🍰 Desserts & Pastas</h2>
-  
-  <!-- Creamy Tuna Pesto -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Creamy Tuna Pesto</h3>
-      <p>₱180 - ₱280</p>
-      <div class="add-ons">
-        <label><input type="checkbox" value="extra-cheese"> +Cheese (₱20)</label>
-        <label><input type="checkbox" value="garlic-bread"> +Garlic Bread (₱30)</label>
-      </div>
-    </div>
-    <input type="number" id="tuna-pesto" min="0" value="0">
-  </div>
-
-  <!-- Filipino Spaghetti -->
-  <div class="menu-item">
-    <div class="item-details">
-      <h3>Filipino Spaghetti</h3>
-      <p>₱180 - ₱280</p>
-      <div class="add-ons">
-        <label><input type="checkbox" value="extra-cheese"> +Cheese (₱20)</label>
-        <label><input type="checkbox" value="hotdog"> +Hotdog (₱30)</label>
-      </div>
-    </div>
-    <input type="number" id="filipino-spaghetti" min="0" value="0">
-  </div>
-</div>
-
-<!-- Order Summary -->
-<div class="order-summary">
-  <h2>🛒 Order Summary</h2>
-  <div id="order-items"></div>
-  <p>Total: ₱<span id="total-price">0</span></p>
-  <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
-</div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brew-Me Cafe Online Ordering</title>
-  <style>
-    /* Base Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-    }
-    
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-
-    h1, h2 {
-      color: #2d3436;
-      margin-bottom: 25px;
-    }
-
-    .menu-section {
-      margin-bottom: 40px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 10px;
-    }
-
-    .menu-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .item-details {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .size-options {
-      display: flex;
-      gap: 15px;
-      margin: 10px 0;
-    }
-
-    .add-ons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-<!-- Add this to the existing CSS -->
-<style>
-    #order-items div {
-        margin: 10px 0;
-        padding: 10px;
-        background: #fff;
-        border-radius: 5px;
-        border: 1px solid #eee;
-    }
-</style>
-
-<script>
-    // Price Configuration (keep existing prices object)
-
-    // Calculate Total Function
+    // Enhanced Calculation Function
     function calculateTotal() {
-        let total = 0;
+      let total = 0;
+      const orderItems = [];
 
-        // Calculate Shakes
-        const chocolateQty = parseInt(document.getElementById('chocolate-shake').value);
-        if (chocolateQty > 0) {
-            const size = document.querySelector('[name="chocolate-size"]:checked').value;
-            const price = prices.shakes.chocolate[size];
-            total += price * chocolateQty;
-            
-            // Add add-ons
-            document.querySelectorAll('[name="chocolate-addons"]:checked').forEach(addon => {
-                total += prices.addOns[addon.value] * chocolateQty;
-            });
-        }
-
-        // Calculate Expresso
-        const expressoQty = parseInt(document.getElementById('expresso').value);
-        if (expressoQty > 0) {
-            total += prices.drinks.expresso.min * expressoQty;
-        }
-
-        // Calculate Tuna Sandwich
-        const tunaQty = parseInt(document.getElementById('tuna-sandwich').value);
-        if (tunaQty > 0) {
-            total += prices.snacks.tunaSandwich.min * tunaQty;
-            
-            document.querySelectorAll('[name="tuna-addons"]:checked').forEach(addon => {
-                total += prices.addOns[addon.value] * tunaQty;
-            });
-        }
-
-        // Update Display
-        document.getElementById('total-price').textContent = total;
-        return total;
-    }
-
-    // Update order summary when any input changes
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('change', () => {
-            const orderItemsDiv = document.getElementById('order-items');
-            orderItemsDiv.innerHTML = '';
-            let html = '';
-            
-            // Example for Chocolate Shake
-            const chocolateQty = parseInt(document.getElementById('chocolate-shake').value);
-            if (chocolateQty > 0) {
-                html += `<div>
-                    Chocolate Shake (${document.querySelector('[name="chocolate-size"]:checked').value}) 
-                    x${chocolateQty} - ₱${prices.shakes.chocolate[document.querySelector('[name="chocolate-size"]:checked').value] * chocolateQty}
-                </div>`;
-            }
-
-            // Repeat similar logic for all other items
-            
-            orderItemsDiv.innerHTML = html;
-            calculateTotal();
+      // Calculate Drinks
+      const espressoQty = parseInt(document.getElementById('espresso-qty').value);
+      if (espressoQty > 0) {
+        const size = document.querySelector('[name="espresso-size"]:checked').value;
+        const price = prices.drinks.D01[size];
+        total += price * espressoQty;
+        orderItems.push({
+          code: 'D01',
+          name: 'Espresso',
+          size: size,
+          qty: espressoQty,
+          price: price * espressoQty
         });
-    });
+      }
 
-    // Modified placeOrder function
-    async function placeOrder() {
-        const total = calculateTotal();
-        if (total === 0) {
-            alert('Please add items to your order');
-            return;
-        }
-
-        // Rest of your existing Formspree code
-        // Add total to formData
-        formData.append('Total Amount', `₱${total}`);
+      // Calculate Chocolate Shake
+      const chocolateQty = parseInt(document.getElementById('chocolate-shake-qty').value);
+      if (chocolateQty > 0) {
+        const size = document.querySelector('[name="chocolate-shake-size"]:checked').value;
+        const price = prices.drinks.D07[size];
+        let itemTotal = price * chocolateQty;
         
-        // Existing Formspree submission code
+        // Add add-ons
+        const addons = Array.from(document.querySelectorAll('[name="chocolate-addons"]:checked'));
+        addons.forEach(addon => {
+          itemTotal += prices.addOns[addon.value] * chocolateQty;
+        });
+
+        total += itemTotal;
+        orderItems.push({
+          code: 'D07',
+          name: 'Chocolate Shake',
+          size: size,
+          qty: chocolateQty,
+          addons: addons.map(a => a.value),
+          price: itemTotal
+        });
+      }
+
+      // Calculate Tuna Sandwich
+      const tunaQty = parseInt(document.getElementById('tuna-sandwich-qty').value);
+      if (tunaQty > 0) {
+        const price = prices.snacks.tunaSandwich.min;
+        let itemTotal = price * tunaQty;
+        
+        document.querySelectorAll('[name="tuna-addons"]:checked').forEach(addon => {
+          itemTotal += prices.addOns[addon.value] * tunaQty;
+        });
+
+        total += itemTotal;
+        orderItems.push({
+          name: 'Tuna Sandwich',
+          qty: tunaQty,
+          addons: Array.from(document.querySelectorAll('[name="tuna-addons"]:checked')).map(a => a.value),
+          price: itemTotal
+        });
+      }
+
+      // Update Display
+      document.getElementById('total-price').textContent = total;
+      return { total, orderItems };
     }
-</script>
+
+    // Update placeOrder function
+    async function placeOrder() {
+      const { total, orderItems } = calculateTotal();
+      
+      if (total === 0) {
+        alert('Please add items to your order');
+        return;
+      }
+
+      // Prepare Formspree submission
+      const formData = new FormData();
+      formData.append('Customer Name', document.getElementById('full-name').value);
+      formData.append('Contact', document.getElementById('contact').value);
+      formData.append('Address', document.getElementById('address').value);
+      formData.append('Delivery Time', document.getElementById('delivery-time').value);
+      formData.append('Order Items', JSON.stringify(orderItems));
+      formData.append('Total Amount', `₱${total}`);
+
+      try {
+        const response = await fetch('https://formspree.io/f/xjkgerqg', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          alert('Order placed successfully!');
+          document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
+          document.getElementById('total-price').textContent = '0';
+        }
+      } catch (error) {
+        alert('Error submitting order. Please try again.');
+      }
+    }
+
+    // Real-time Updates
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('change', () => {
+        const orderItemsDiv = document.getElementById('order-items');
+        const { orderItems } = calculateTotal();
+        
+        orderItemsDiv.innerHTML = orderItems.map(item => `
+          <div>
+            ${item.code ? `[${item.code}]` : ''} ${item.name} 
+            ${item.size ? `(${item.size})` : ''} 
+            x${item.qty} 
+            ${item.addons?.length > 0 ? `(+ ${item.addons.join(', ')})` : ''}
+            - ₱${item.price}
+          </div>
+        `).join('');
+      });
+    });
+  </script>
+</body>
+</html>
