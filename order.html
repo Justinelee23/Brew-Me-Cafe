@@ -1,54 +1,258 @@
-// HTML Form (Ensure this is inside your form tag in your HTML file)
-<form id="orderForm" action="https://formspree.io/f/xjkgerqg" method="POST">
-    <label for="name">Full Name:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <label for="contact">Contact Number:</label>
-    <input type="text" id="contact" name="contact" required>
-    
-    <label for="address">Delivery Address:</label>
-    <textarea id="address" name="address" required></textarea>
-    
-    <label for="order">Order Details:</label>
-    <textarea id="order" name="order" readonly></textarea>
-    
-    <button type="submit">Place Order</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Ordering System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .menu-section {
+      margin-bottom: 20px;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item h3 {
+      margin: 0;
+      color: #555;
+    }
+    .menu-item p {
+      margin: 5px 0;
+      color: #777;
+    }
+    .menu-item input[type="number"] {
+      width: 50px;
+      padding: 5px;
+    }
+    .add-ons {
+      margin-top: 10px;
+    }
+    .add-ons label {
+      display: block;
+      margin: 5px 0;
+    }
+    .order-summary {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    .order-summary h2 {
+      margin-top: 0;
+    }
+    .order-summary ul {
+      list-style: none;
+      padding: 0;
+    }
+    .order-summary ul li {
+      margin-bottom: 10px;
+    }
+    .place-order-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .place-order-btn:hover {
+      background-color: #218838;
+    }
+    .customer-details {
+      display: grid;
+      gap: 15px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    .form-group input,
+    .form-group textarea {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .form-group textarea {
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Online Ordering System</h1>
 
-// JavaScript to collect order details and send to Formspree
-document.getElementById("orderForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent default form submission
+    <!-- Customer Details Section -->
+    <div class="menu-section">
+      <h2>Customer Details for Delivery</h2>
+      <div class="customer-details">
+        <div class="form-group">
+          <label for="full-name">Full Name:</label>
+          <input type="text" id="full-name" name="full-name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Delivery Address:</label>
+          <textarea id="address" name="address" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number:</label>
+          <input type="tel" id="contact" name="contact" pattern="[0-9]{11}" required>
+        </div>
+        <div class="form-group">
+          <label for="delivery-time">Preferred Delivery Time:</label>
+          <input type="datetime-local" id="delivery-time" name="delivery-time" required>
+        </div>
+      </div>
+    </div>
 
-    // Collect order details
-    let orderDetails = "";
-    document.querySelectorAll(".cart-item").forEach(item => {
-        const name = item.querySelector(".item-name").innerText;
-        const price = item.querySelector(".item-price").innerText;
-        const quantity = item.querySelector(".item-quantity").value;
-        orderDetails += `${name} - ${quantity} x ${price}\n`;
-    });
+    <!-- Drinks Section -->
+    <div class="menu-section">
+      <h2>Drinks</h2>
+      <div class="menu-item">
+        <div>
+          <h3>Expresso</h3>
+          <p>₱120 - ₱150</p>
+        </div>
+        <div>
+          <label for="expresso-qty">Quantity:</label>
+          <input type="number" id="expresso-qty" name="expresso-qty" min="0" value="0">
+        </div>
+      </div>
+      <!-- Add other menu items similarly -->
+    </div>
 
-    // Set order details in textarea
-    document.getElementById("order").value = orderDetails;
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <ul id="order-list"></ul>
+      <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+    </div>
+  </div>
 
-    // Send form data to Formspree
-    fetch("https://formspree.io/f/xjkgerqg", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            name: document.getElementById("name").value,
-            contact: document.getElementById("contact").value,
-            address: document.getElementById("address").value,
-            order: orderDetails
-        })
-    }).then(response => {
-        if (response.ok) {
-            alert("Order placed successfully!");
-            document.getElementById("orderForm").reset(); // Clear form after submission
-        } else {
-            alert("Failed to send order. Please try again.");
+  <script>
+    // Function to update the order summary
+    function updateOrderSummary() {
+      const orderList = document.getElementById('order-list');
+      orderList.innerHTML = '';
+
+      // Example: Add items to the order summary
+      const items = [
+        { name: 'Expresso', qty: document.getElementById('expresso-qty').value, price: 120 },
+        { name: 'Brewed Coffee', qty: document.getElementById('brewed-coffee-qty').value, price: 80 },
+        { name: 'Chocolate Shake', qty: document.getElementById('chocolate-shake-qty').value, price: 150 },
+        { name: 'Tuna Sandwich', qty: document.getElementById('tuna-sandwich-qty').value, price: 130 },
+        { name: 'Waffles', qty: document.getElementById('waffles-qty').value, price: 50 },
+      ];
+
+      // Add-ons prices
+      const addOnsPrices = {
+        'whipped-cream': 20,
+        'choco-chips': 30,
+        'extra-cheese': 20,
+        'extra-mayo': 10,
+        'bacon-strips': 50,
+      };
+
+      // Calculate total and display order summary
+      let total = 0;
+      items.forEach(item => {
+        if (item.qty > 0) {
+          const itemTotal = item.qty * item.price;
+          total += itemTotal;
+          orderList.innerHTML += `<li>${item.name} x ${item.qty} = ₱${itemTotal}</li>`;
         }
-    }).catch(error => {
-        alert("Error submitting order: " + error);
-    });
-});
+      });
+
+      // Display total
+      orderList.innerHTML += `<li><strong>Total:</strong> ₱${total}</li>`;
+    }
+
+    // Function to place the order
+    function placeOrder() {
+      // Get customer details
+      const customerName = document.getElementById('full-name').value;
+      const address = document.getElementById('address').value;
+      const contact = document.getElementById('contact').value;
+      const deliveryTime = document.getElementById('delivery-time').value;
+
+      // Validate customer details
+      if (!customerName || !address || !contact || !deliveryTime) {
+        alert('Please fill in all customer details before placing your order.');
+        return;
+      }
+
+      // Prepare form data for Formspree
+      const formData = new FormData();
+      formData.append('full-name', customerName);
+      formData.append('address', address);
+      formData.append('contact', contact);
+      formData.append('delivery-time', deliveryTime);
+
+      // Add order items to form data
+      const items = [
+        { name: 'Expresso', qty: document.getElementById('expresso-qty').value },
+        { name: 'Brewed Coffee', qty: document.getElementById('brewed-coffee-qty').value },
+        { name: 'Chocolate Shake', qty: document.getElementById('chocolate-shake-qty').value },
+        { name: 'Tuna Sandwich', qty: document.getElementById('tuna-sandwich-qty').value },
+        { name: 'Waffles', qty: document.getElementById('waffles-qty').value },
+      ];
+
+      items.forEach(item => {
+        if (item.qty > 0) {
+          formData.append(item.name, item.qty);
+        }
+      });
+
+      // Submit form data to Formspree
+      fetch('https://formspree.io/f/xjkgerqg', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Order placed successfully! We will contact you to confirm your order.');
+        } else {
+          alert('There was an error submitting your order. Please try again.');
+        }
+      })
+      .catch(error => {
+        alert('There was an error submitting your order. Please try again.');
+      });
+    }
+  </script>
+</body>
+</html>
